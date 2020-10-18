@@ -10,6 +10,8 @@ class Material
 
   int border_x_min, border_x_max, border_y_min, border_y_max;
 
+  void reboundFromBorder();
+
   public:
     Material(double mass,
              double pos_x, double pos_y,
