@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = simulations
 INCLUDEPATH += .
-QT += gui widgets
+QT += gui widgets core
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -16,4 +16,11 @@ QT += gui widgets
 
 # Input
 
-SOURCES += main.cpp
+HEADERS += widget-main.h \
+           material.h \
+           main-helper.h
+
+SOURCES += main.cpp \
+           widget-main.cpp \
+           material.cpp \
+           main-helper.cpp
