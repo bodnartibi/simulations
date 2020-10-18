@@ -3,7 +3,8 @@
 Material::Material(double mass,
                    double pos_x, double pos_y,
                    double velocity_x, double velocity_y,
-                   double accelerate_x, double accelerate_y)
+                   double accelerate_x, double accelerate_y,
+                   int border_x_min, int border_x_max, int border_y_min, int border_y_max)
 {
   this->mass = mass;
 
@@ -15,6 +16,11 @@ Material::Material(double mass,
 
   this->accelerate_x = accelerate_x;
   this->accelerate_y = accelerate_y;
+
+  this->border_x_min = border_x_min;
+  this->border_x_max = border_x_max;
+  this->border_y_min = border_y_min;
+  this->border_y_max = border_y_max;
 }
 
 void Material::setAccelerate(double accelerate_x, double accelerate_y)
@@ -23,13 +29,21 @@ void Material::setAccelerate(double accelerate_x, double accelerate_y)
   this->accelerate_y = accelerate_y;
 }
 
-void Material::move(int step)
+void Material::move(const int step)
 {
-  this->pos_x += step * this->velocity_x;
-  this->velocity_x += step * this->accelerate_x;
+  pos_x += step * velocity_x;
+  velocity_x += step * accelerate_x;
 
-  this->pos_y += step * this->velocity_y;
-  this->velocity_y += step * this->accelerate_y;
+  pos_y += step * velocity_y;
+  velocity_y += step * accelerate_y;
+
+  if (pos_x < border_x_min
+      || pos_x > border_x_max)
+    pos_x = -pos_x;
+
+  if (pos_y < border_y_min
+      || pos_y > border_y_max)
+    pos_y = -pos_y;
 }
 
 void Material::getPosition(double &pos_x, double &pos_y)
