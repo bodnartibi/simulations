@@ -37,13 +37,28 @@ void Material::move(const int step)
   pos_y += step * velocity_y;
   velocity_y += step * accelerate_y;
 
-  if (pos_x < border_x_min
-      || pos_x > border_x_max)
-    pos_x = -pos_x;
+  if (pos_x < border_x_min)
+  {
+    pos_x = border_x_min + (border_x_min - pos_x);
+    velocity_x = -velocity_x;
+  }
+  else if (pos_x > border_x_max)
+  {
+    pos_x = border_x_max - (pos_x - border_x_max);
+    velocity_x = -velocity_x;
+  }
 
-  if (pos_y < border_y_min
-      || pos_y > border_y_max)
-    pos_y = -pos_y;
+
+  if (pos_y < border_y_min)
+  {
+    pos_y = border_y_min + (border_y_min - pos_y);
+    velocity_y = -velocity_y;
+  }
+  if (pos_y > border_y_max)
+  {
+    pos_y = border_y_max - (pos_y - border_y_max);
+    velocity_y = -velocity_y;
+  }
 }
 
 void Material::getPosition(double &pos_x, double &pos_y)
