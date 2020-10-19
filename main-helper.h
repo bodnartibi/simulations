@@ -17,8 +17,10 @@ class MainHelper : public QObject
 
   QList<Material*> materialList;
 
-  int animation_time_quantum_ms;
-  int simulation_time_quantum_ms;
+  unsigned int animation_time_quantum_ms;
+  unsigned int simulation_time_quantum_ms;
+
+  unsigned int time_spent;
 
   int num_of_materials = 10;
 
@@ -26,9 +28,11 @@ class MainHelper : public QObject
   double acc_x = 0, acc_y = 1;
 
   void fillList();
+  void simulate();
+  void animate();
 
   public:
-    MainHelper(int animation_time_quantum_ms, int simulation_time_quantum_ms);
+    MainHelper(int animation_time_quantum_ms = 50, int simulation_time_quantum_ms = 5);
     void run();
 
   protected:

@@ -29,25 +29,48 @@ MainHelper::MainHelper(int animation_time_quantum_ms, int simulation_time_quantu
   this->fillList();
 
   this->widget_main->setMaterials(this->materialList);
+
+  this->time_spent = 0;
+}
+
+void MainHelper::simulate()
+{
+  int list_size = this->materialList.size();
+
+  for ( int i = 0; i < list_size; i++ ) {
+    this->materialList[i]->move(0.1);
+  }
+
+}
+
+void MainHelper::animate()
+{
+  this->widget_main->setMaterials(this->materialList);
+  widget_main->update();
 }
 
 void MainHelper::timeout()
 {
-  QListIterator<Material *> i(this->materialList);
-  Material *m;
-  for ( int i = 0; i < this->materialList.size(); i++ ) {
-    m = this->materialList[i];
-    m->move(1);
+  this->simulate();
+  if (animation_time_quantum_ms > simulation_time_quantum_ms)
+  {
+    time_spent += simulation_time_quantum_ms;
+    if (time_spent > animation_time_quantum_ms)
+    {
+      this->animate();
+      time_spent = 0;
+    }
   }
-
-  this->widget_main->setMaterials(this->materialList);
-  widget_main->update();
-  this->timer->start(this->animation_time_quantum_ms);
+  else
+  {
+    this->animate();
+  }
+  this->timer->start(simulation_time_quantum_ms);
 }
 
 void MainHelper::run()
 {
   this->widget_main->show();
-  this->timer->start(this->animation_time_quantum_ms);
+  this->timer->start(this->simulation_time_quantum_ms);
 }
 
