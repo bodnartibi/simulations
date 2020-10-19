@@ -15,19 +15,11 @@ void WidgetMain::paintEvent(QPaintEvent *event)
   QListIterator<Material *> i(this->materials);
   Material *m;
   for ( int i = 0; i < this->materials.size(); i++ ) {
-      double x, y;
+      double x, y, r;
       m = this->materials[i];
       m->getPosition(x, y);
-      this->painter->drawPoint(x, y);
+      m->getRadius(r);
+      this->painter->drawEllipse(QPointF(x,y), r, r);
   }
 
-
-  //draw an ellipse
-  //The setRenderHint() call enables antialiasing, telling QPainter to use different
-  //color intensities on the edges to reduce the visual distortion that normally
-  //occurs when the edges of a shape are converted into pixels
-//  this->painter->setRenderHint(QPainter::Antialiasing, true);
-//  this->painter->setPen(QPen(Qt::black, 3, Qt::DashDotLine, Qt::RoundCap));
-//  this->painter->setBrush(QBrush(Qt::green, Qt::SolidPattern));
-//  this->painter->drawEllipse(this->size[0]--, this->size[1]--, this->size[2]--, this->size[3]--);
 }

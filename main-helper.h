@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QList>
 #include <QGlobal.h>
+#include <QtMath>
 
 #include "widget-main.h"
 #include "material.h"
@@ -25,7 +26,7 @@ class MainHelper : public QObject
   int num_of_materials = 10;
 
   int sim_size_x = 800, sim_size_y = 600;
-  double acc_x = 0, acc_y = 1;
+  double acc_x = 0, acc_y = 0.02;
 
   void fillList();
   void simulate();
